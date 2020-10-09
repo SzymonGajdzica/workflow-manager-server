@@ -1,0 +1,43 @@
+{
+  "properties": [
+    {
+      "name": "datasource.local.username",
+      "type": "java.lang.String",
+      "description": "Stores username to local database."
+    },
+    {
+      "name": "datasource.local.password",
+      "type": "java.lang.String",
+      "description": "Stores password to local database."
+    },
+    {
+      "name": "datasource.local.url",
+      "type": "java.lang.String",
+      "description": "Stores url to local database."
+    },
+    {
+      "name": "datasource.remote.username",
+      "type": "java.lang.String",
+      "description": "Stores username to remote database."
+    },
+    {
+      "name": "datasource.remote.password",
+      "type": "java.lang.String",
+      "description": "Stores password to remote database."
+    },
+    {
+      "name": "datasource.remote.url",
+      "type": "java.lang.String",
+      "description": "Stores url to remote database."
+    },
+    {
+      "name": "authorization.secret-key",
+      "type": "java.lang.String",
+      "description": "Secret key used to generate token."
+    },
+    {
+      "name": "authorization.validity-in-millis",
+      "type": "java.lang.String",
+      "description": "Validity of token in milliseconds."
+    }
+  ] }
