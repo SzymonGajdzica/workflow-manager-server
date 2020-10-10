@@ -11,4 +11,5 @@ public interface UserService {
     UserView registerUser(UserPost userPost);
 
     UserView updateUser(Long userId, UserPatch userPatch);
+
 }

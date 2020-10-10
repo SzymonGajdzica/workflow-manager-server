@@ -37,7 +37,7 @@ public class AuthenticationHelper {
         this.userRepository = userRepository;
     }
 
-    private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+    private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) throws RuntimeException {
         String parsedToken;
         if (token != null && token.startsWith("Bearer "))
             parsedToken = token.substring(7);
@@ -47,7 +47,7 @@ public class AuthenticationHelper {
     }
 
     @NonNull
-    public String generateToken(String username, String plainPassword) throws Exception {
+    public String generateToken(String username, String plainPassword) throws RuntimeException {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, plainPassword));
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return Jwts.builder()
@@ -65,24 +65,24 @@ public class AuthenticationHelper {
         String userName;
         try {
             userName = getUsernameFromToken(token);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             throw new NotAuthorizedException(e.getMessage());
         }
         return (T) userRepository.findByUsername(userName).orElseThrow(() -> new NotAuthorizedException("Token does not match any user"));
     }
 
     @NonNull
-    public String getUsernameFromToken(String token) throws Exception {
+    public String getUsernameFromToken(String token) throws RuntimeException {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
     @NonNull
-    public Date getExpirationDateFromToken(String token) throws Exception {
+    public Date getExpirationDateFromToken(String token) throws RuntimeException {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
     @NonNull
-    public Boolean validateToken(String token, UserDetails userDetails) throws Exception {
+    public Boolean validateToken(String token, UserDetails userDetails) throws RuntimeException {
         return getUsernameFromToken(token).equals(userDetails.getUsername()) && !getExpirationDateFromToken(token).before(new Date());
     }
 

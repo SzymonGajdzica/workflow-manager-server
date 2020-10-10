@@ -29,6 +29,7 @@ public abstract class User extends IdEntity {
     @NonNull
     private Boolean enabled = true;
 
+    @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     @NonNull
     private Role role;
