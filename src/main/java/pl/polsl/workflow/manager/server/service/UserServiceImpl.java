@@ -8,6 +8,7 @@ import pl.polsl.workflow.manager.server.mapper.UserMapper;
 import pl.polsl.workflow.manager.server.model.*;
 import pl.polsl.workflow.manager.server.repository.UserRepository;
 import pl.polsl.workflow.manager.server.service.initialization.DataFiller;
+import pl.polsl.workflow.manager.server.view.UserPatch;
 import pl.polsl.workflow.manager.server.view.UserPost;
 import pl.polsl.workflow.manager.server.view.UserView;
 
@@ -36,6 +37,13 @@ public class UserServiceImpl implements UserService, DataFiller {
         User user = userMapper.map(userPost);
         user.setPassword(bCryptPasswordEncoder.encode(userPost.getPassword()));
         user.setRole(role);
+        return userMapper.map(userRepository.save(user));
+    }
+
+    @Override
+    public UserView updateUser(Long userId, UserPatch userPatch) {
+        User user = userRepository.getById(userId);
+        userMapper.map(userPatch, user);
         return userMapper.map(userRepository.save(user));
     }
 

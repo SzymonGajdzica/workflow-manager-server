@@ -1,11 +1,9 @@
 package pl.polsl.workflow.manager.server.controller;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.polsl.workflow.manager.server.service.UserService;
+import pl.polsl.workflow.manager.server.view.UserPatch;
 import pl.polsl.workflow.manager.server.view.UserPost;
 import pl.polsl.workflow.manager.server.view.UserView;
 
@@ -24,6 +22,11 @@ public class UserController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserView registerUser(@Valid @RequestBody UserPost userPost) {
         return userService.registerUser(userPost);
+    }
+
+    @PostMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public UserView updateUser(@PathVariable Long userId, @Valid @RequestBody UserPatch userPatch) {
+        return userService.updateUser(userId, userPatch);
     }
 
 }

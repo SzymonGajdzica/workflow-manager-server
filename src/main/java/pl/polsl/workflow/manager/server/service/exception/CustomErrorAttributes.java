@@ -14,11 +14,8 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
         Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, includeStackTrace);
         Throwable error = getError(webRequest);
-        //todo
-        if(error != null) {
-            errorAttributes.put("exception", error.getClass().getSimpleName());
-            errorAttributes.put("custom", error instanceof BaseException);
-        }
+        errorAttributes.put("exception", error.getClass().getSimpleName());
+        errorAttributes.put("custom", error instanceof BaseException);
         return errorAttributes;
     }
 }

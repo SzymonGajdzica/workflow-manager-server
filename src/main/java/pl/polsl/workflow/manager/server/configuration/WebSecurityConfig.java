@@ -68,11 +68,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers(
                 "/v2/api-docs",
-                "/configuration/ui",
                 "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**");
+                "/swagger-ui/**",
+                "/swagger-ui/index.html**",
+                "/webjars/**",
+                "/actuator/health");
     }
 
     @Override
@@ -83,7 +83,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/authentication/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/user").hasAuthority(Role.COORDINATOR.name())
+                .antMatchers(HttpMethod.POST, "/user").hasAnyAuthority(Role.COORDINATOR.name())
+                .antMatchers(HttpMethod.PATCH, "/user").hasAuthority(Role.COORDINATOR.name())
+                .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);

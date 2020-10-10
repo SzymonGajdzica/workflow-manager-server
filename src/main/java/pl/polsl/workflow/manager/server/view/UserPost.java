@@ -16,18 +16,18 @@ import javax.validation.constraints.NotBlank;
 @ToString
 public class UserPost {
 
-    @ApiModelProperty(required = true, example = "admin", position = 1)
+    @ApiModelProperty(required = true, example = "John33", position = 1)
     @NonNull
     @NotBlank
     private String username;
 
-    @ApiModelProperty(required = true, example = "admin", position = 2)
+    @ApiModelProperty(required = true, example = "4j21521j3h5gv", position = 2)
     @NonNull
     @NotBlank
     @Length(min = 3, max = 20)
     private String password;
 
-    @ApiModelProperty(required = true, example = "admin", position = 3)
+    @ApiModelProperty(required = true, example = "WORKER", position = 3)
     @NonNull
     @ValueOfEnum(enumClass = Role.class)
     private String role;

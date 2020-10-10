@@ -1,8 +1,9 @@
 package pl.polsl.workflow.manager.server.mapper;
 
 import org.springframework.stereotype.Component;
-import pl.polsl.workflow.manager.server.exception.NotFoundException;
+import pl.polsl.workflow.manager.server.exception.NotImplementedException;
 import pl.polsl.workflow.manager.server.model.*;
+import pl.polsl.workflow.manager.server.view.UserPatch;
 import pl.polsl.workflow.manager.server.view.UserPost;
 import pl.polsl.workflow.manager.server.view.UserView;
 
@@ -23,18 +24,25 @@ public class UserMapperImpl implements UserMapper {
                 user = new Worker();
                 break;
             default:
-                throw new NotFoundException(userPost.getRole());
+                throw new NotImplementedException("This role not handled yet");
         }
         user.setUsername(userPost.getUsername());
         return user;
     }
 
     @Override
+    public void map(UserPatch userPatch, User user) {
+        if(userPatch.getEnabled() != null)
+            user.setEnabled(userPatch.getEnabled());
+    }
+
+    @Override
     public UserView map(User user) {
         UserView userView = new UserView();
-        userView.setRoleCode(user.getRole().name());
+        userView.setRole(user.getRole().name());
         userView.setId(user.getId());
         userView.setUsername(user.getUsername());
+        userView.setEnabled(user.getEnabled());
         return userView;
     }
 }
