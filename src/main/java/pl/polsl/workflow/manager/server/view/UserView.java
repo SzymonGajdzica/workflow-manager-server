@@ -11,19 +11,19 @@ import org.springframework.lang.NonNull;
 @ToString
 public class UserView {
 
-    @ApiModelProperty(required = true, position = 1)
+    @ApiModelProperty(position = 1)
     @NonNull
     private Long id;
 
-    @ApiModelProperty(required = true, example = "John33", position = 2)
+    @ApiModelProperty(example = "John33", position = 2)
     @NonNull
     private String username;
 
-    @ApiModelProperty(required = true, example = "WORKER", position = 3)
+    @ApiModelProperty(example = "WORKER", position = 3)
     @NonNull
     private String role;
 
-    @ApiModelProperty(required = true, position = 4)
+    @ApiModelProperty(position = 4)
     @NonNull
     private Boolean enabled;
 

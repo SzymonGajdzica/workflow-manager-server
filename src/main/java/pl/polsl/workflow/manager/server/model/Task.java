@@ -9,7 +9,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.UUID;
 
@@ -27,12 +26,10 @@ public class Task extends IdEntity {
 
     @Column(name = "name", nullable = false)
     @NonNull
-    @NotBlank
     private String name;
 
     @Column(name = "description", nullable = false)
     @NonNull
-    @NotBlank
     private String description;
 
     @ManyToOne(optional = false)
@@ -44,22 +41,29 @@ public class Task extends IdEntity {
     @NonNull
     private TaskStatus status;
 
-    @ManyToOne()
-    @Nullable
-    private Worker assignedWorker;
-
-    @ManyToOne()
-    @Nullable
+    @ManyToOne(optional = false)
+    @NonNull
     private Localization localization;
 
     @Column(name = "auto_assign", nullable = false)
     @NonNull
     private Boolean autoAssign;
 
-    @Column(name = "estimated_execution_time", nullable = false)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @ManyToOne()
+    @Nullable
+    private Worker assignedWorker;
+
+    @OneToOne()
+    @Nullable
+    private TaskWorkerReport workerReport;
+
+    @OneToOne()
+    @Nullable
+    private TaskManagerReport managerReport;
+
+    @Column(name = "estimated_execution_time_in_millis", nullable = false)
     @NonNull
-    private Date estimatedExecutionTime;
+    private Long estimatedExecutionTimeInMillis;
 
     @Column(name = "deadline", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -71,31 +75,14 @@ public class Task extends IdEntity {
     @NonNull
     private Date createDate = new Date();
 
+    @Column(name = "assign_date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Nullable
+    private Date assignDate;
+
     @Column(name = "start_date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
     private Date startDate;
-
-    @Column(name = "end_date")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @Nullable
-    private Date endDate;
-
-    @Column(name = "accept_date")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @Nullable
-    private Date acceptDate;
-
-    @OneToOne()
-    @Nullable
-    private TaskReport report;
-
-    @OneToOne()
-    @Nullable
-    private Task subTask;
-
-    @OneToOne()
-    @Nullable
-    private Task superTask;
 
 }

@@ -19,6 +19,7 @@ public class Parameters {
     }
 
     public static class Authorization {
+        public static final String HEADER = "AUTHORIZATION";
         public static final String SECRET = "${authorization.secret-key}";
         public static final String VALIDITY = "${authorization.validity-in-millis}";
     }

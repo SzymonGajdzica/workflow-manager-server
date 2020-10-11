@@ -14,4 +14,6 @@ import javax.persistence.Entity;
 @ToString
 public class Coordinator extends User {
 
+
+
 }

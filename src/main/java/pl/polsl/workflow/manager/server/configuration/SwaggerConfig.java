@@ -15,8 +15,6 @@ import java.util.Collections;
 @Configuration
 public class SwaggerConfig {
 
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-
     @Bean
     public Docket getDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -41,7 +39,7 @@ public class SwaggerConfig {
     }
 
     private ApiKey getApiKey() {
-        return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
+        return new ApiKey("JWT", Parameters.Authorization.HEADER, "header");
     }
 
     private SecurityContext getSecurityContext() {

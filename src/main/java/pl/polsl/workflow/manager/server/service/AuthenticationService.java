@@ -6,6 +6,6 @@ import pl.polsl.workflow.manager.server.view.AuthenticationView;
 public interface AuthenticationService {
 
     @NonNull
-    AuthenticationView getAuthenticationDetails(String username, String plainPassword);
+    AuthenticationView getAuthenticationDetails(@NonNull String username, @NonNull String plainPassword);
 
 }

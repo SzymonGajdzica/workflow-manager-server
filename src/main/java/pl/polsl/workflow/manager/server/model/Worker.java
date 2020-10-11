@@ -4,8 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
@@ -13,5 +15,9 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @ToString
 public class Worker extends User {
+
+    @ManyToOne()
+    @Nullable
+    private Group group;
 
 }

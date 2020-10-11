@@ -85,6 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authentication/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/user").hasAnyAuthority(Role.COORDINATOR.name())
                 .antMatchers(HttpMethod.PATCH, "/user").hasAuthority(Role.COORDINATOR.name())
+                .antMatchers(HttpMethod.POST, "/task").hasAuthority(Role.MANAGER.name())
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

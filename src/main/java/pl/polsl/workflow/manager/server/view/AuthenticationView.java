@@ -14,11 +14,11 @@ import java.util.Date;
 @ToString
 public class AuthenticationView {
 
-    @ApiModelProperty(required = true, example = "eyJhbGciOiJI...", position = 1)
+    @ApiModelProperty(example = "eyJhbGciOiJI...", position = 1)
     @NonNull
     private String token;
 
-    @ApiModelProperty(required = true, position = 2)
+    @ApiModelProperty(position = 2)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
     private Date expirationDate;

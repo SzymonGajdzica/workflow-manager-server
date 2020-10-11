@@ -8,8 +8,9 @@ import pl.polsl.workflow.manager.server.view.UserView;
 public interface UserService {
 
     @NonNull
-    UserView registerUser(UserPost userPost);
+    UserView registerUser(@NonNull UserPost userPost);
 
-    UserView updateUser(Long userId, UserPatch userPatch);
+    @NonNull
+    UserView updateUser(@NonNull Long userId, @NonNull UserPatch userPatch);
 
 }

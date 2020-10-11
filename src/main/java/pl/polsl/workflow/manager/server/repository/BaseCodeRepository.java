@@ -6,7 +6,7 @@ package pl.polsl.workflow.manager.server.repository;
 //
 //public interface BaseCodeRepository<T extends CodeEntity> extends JpaRepository<T, String> {
 //
-//    default T getById(String code) {
+//    default T getById(@NonNull String code) {
 //        return findById(code).orElseThrow(() -> new NotFoundException(code));
 //    }
 //
