@@ -36,50 +36,46 @@ public class TaskView {
     @NonNull
     private Long creatorId;
 
-    @ApiModelProperty(example = "CREATED", position = 6)
-    @NonNull
-    private String status;
-
-    @ApiModelProperty(position = 7)
+    @ApiModelProperty(position = 6)
     @NonNull
     private Long localizationId;
 
-    @ApiModelProperty(position = 8)
+    @ApiModelProperty(position = 7)
     @NonNull
     private Boolean autoAssign;
 
-    @ApiModelProperty(position = 9)
+    @ApiModelProperty(position = 8)
     @Nullable
     private Long workerId;
 
-    @ApiModelProperty(position = 10)
+    @ApiModelProperty(position = 9)
     @Nullable
     private TaskWorkerReportView taskWorkerReportView;
 
-    @ApiModelProperty(position = 11)
+    @ApiModelProperty(position = 10)
     @Nullable
     private TaskManagerReportView taskManagerReportView;
 
-    @ApiModelProperty(position = 12)
+    @ApiModelProperty(position = 11)
     @NonNull
     private Long estimatedExecutionTimeInMillis;
 
-    @ApiModelProperty(position = 13)
+    @ApiModelProperty(position = 12)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
     private Date deadline;
 
-    @ApiModelProperty(position = 14)
+    @ApiModelProperty(position = 13)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
     private Date createDate = new Date();
 
-    @ApiModelProperty(position = 15)
+    @ApiModelProperty(position = 14)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
     private Date assignDate;
 
-    @ApiModelProperty(position = 16)
+    @ApiModelProperty(position = 15)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
     private Date startDate;

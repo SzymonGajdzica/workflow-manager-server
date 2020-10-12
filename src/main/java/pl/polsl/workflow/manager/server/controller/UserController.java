@@ -1,5 +1,6 @@
 package pl.polsl.workflow.manager.server.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.workflow.manager.server.service.UserService;
@@ -19,6 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserView registerUser(@Valid @RequestBody UserPost userPost) {
         return userService.registerUser(userPost);

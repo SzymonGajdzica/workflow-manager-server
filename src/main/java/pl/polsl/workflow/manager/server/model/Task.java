@@ -36,11 +36,6 @@ public class Task extends IdEntity {
     @NonNull
     private Manager creator;
 
-    @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    @NonNull
-    private TaskStatus status;
-
     @ManyToOne(optional = false)
     @NonNull
     private Localization localization;
@@ -53,11 +48,11 @@ public class Task extends IdEntity {
     @Nullable
     private Worker assignedWorker;
 
-    @OneToOne()
+    @OneToOne(mappedBy = "task")
     @Nullable
     private TaskWorkerReport workerReport;
 
-    @OneToOne()
+    @OneToOne(mappedBy = "task")
     @Nullable
     private TaskManagerReport managerReport;
 
@@ -84,5 +79,16 @@ public class Task extends IdEntity {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
     private Date startDate;
+
+    public TaskStatus getStatus() {
+        if(managerReport != null)
+            return TaskStatus.ACCEPTED;
+        else if(workerReport != null)
+            return TaskStatus.FINISHED;
+        else if(startDate != null)
+            return TaskStatus.STARTED;
+        else
+            return TaskStatus.CREATED;
+    }
 
 }

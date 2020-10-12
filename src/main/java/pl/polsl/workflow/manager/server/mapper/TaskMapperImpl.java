@@ -2,9 +2,9 @@ package pl.polsl.workflow.manager.server.mapper;
 
 import org.springframework.stereotype.Component;
 import pl.polsl.workflow.manager.server.model.Task;
-import pl.polsl.workflow.manager.server.model.TaskStatus;
 import pl.polsl.workflow.manager.server.view.TaskPost;
 import pl.polsl.workflow.manager.server.view.TaskView;
+import pl.polsl.workflow.manager.server.view.TaskWorkerReportPost;
 
 @Component
 public class TaskMapperImpl implements TaskMapper {
@@ -32,7 +32,6 @@ public class TaskMapperImpl implements TaskMapper {
         taskView.setName(task.getName());
         taskView.setLocalizationId(task.getLocalization().getId());
         taskView.setEstimatedExecutionTimeInMillis(task.getEstimatedExecutionTimeInMillis());
-        taskView.setStatus(task.getStatus().name());
         if (task.getAssignedWorker() != null)
             taskView.setWorkerId(task.getAssignedWorker().getId());
         if (task.getManagerReport() != null)
@@ -50,8 +49,11 @@ public class TaskMapperImpl implements TaskMapper {
         task.setName(taskPost.getName());
         task.setDescription(taskPost.getDescription());
         task.setEstimatedExecutionTimeInMillis(taskPost.getEstimatedExecutionTimeInMillis());
-        task.setStatus(TaskStatus.CREATED);
         return task;
     }
 
+    @Override
+    public void map(TaskWorkerReportPost taskWorkerReportPost, Task task) {
+        task.setWorkerReport(taskWorkerReportMapper.map(taskWorkerReportPost));
+    }
 }

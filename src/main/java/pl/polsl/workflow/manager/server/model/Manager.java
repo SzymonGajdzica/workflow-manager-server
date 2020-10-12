@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,6 @@ public class Manager extends User {
 
     @OneToMany(mappedBy = "manager")
     @NonNull
-    private List<Group> groups;
+    private List<Group> groups = new LinkedList<>();
 
 }

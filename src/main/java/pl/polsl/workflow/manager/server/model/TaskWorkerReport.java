@@ -32,9 +32,9 @@ public class TaskWorkerReport extends IdEntity {
     @Column(name = "date", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
-    private Date date;
+    private Date date = new Date();
 
-    @OneToOne(mappedBy = "workerReport", optional = false)
+    @OneToOne()
     @NonNull
     private Task task;
 

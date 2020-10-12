@@ -1,5 +1,6 @@
 package pl.polsl.workflow.manager.server.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.workflow.manager.server.configuration.Parameters;
@@ -20,12 +21,34 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public TaskView addTask(
             @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token,
             @Valid @RequestBody TaskPost taskPost
     ) {
         return taskService.createTask(taskPost, token);
+    }
+
+    @GetMapping(value = "/next", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TaskView getNextTask(
+            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token,
+            @RequestParam(required = false) Boolean autoStart
+    ) {
+        return taskService.getNextTask(token, autoStart);
+    }
+
+    @GetMapping(value = "/current", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TaskView getCurrentTask(
+            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token
+    ) {
+        return taskService.getCurrentTask(token);
+    }
+
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void removeTask(@PathVariable Long taskId) {
+        taskService.removeTask(taskId);
     }
 
 

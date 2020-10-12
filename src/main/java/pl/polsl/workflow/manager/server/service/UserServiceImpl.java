@@ -1,7 +1,7 @@
 package pl.polsl.workflow.manager.server.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pl.polsl.workflow.manager.server.exception.BadRequestException;
 import pl.polsl.workflow.manager.server.exception.UsernameAlreadyUsedException;
 import pl.polsl.workflow.manager.server.mapper.UserMapper;
@@ -14,7 +14,7 @@ import pl.polsl.workflow.manager.server.view.UserView;
 
 import java.util.Arrays;
 
-@Component
+@Service
 public class UserServiceImpl implements UserService, DataFiller {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;

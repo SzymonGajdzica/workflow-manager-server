@@ -8,7 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import java.util.LinkedList;
 import java.util.List;
 
 @Table(name = "groups")
@@ -21,7 +21,6 @@ public class Group extends IdEntity {
 
     @Column(name = "name", nullable = false)
     @NonNull
-    @NotBlank
     private String name;
 
     @ManyToOne()
@@ -30,6 +29,6 @@ public class Group extends IdEntity {
 
     @OneToMany(mappedBy = "group")
     @NonNull
-    private List<Worker> workers;
+    private List<Worker> workers = new LinkedList<>();
 
 }

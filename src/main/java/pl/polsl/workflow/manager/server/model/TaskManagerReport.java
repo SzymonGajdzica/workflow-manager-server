@@ -35,7 +35,7 @@ public class TaskManagerReport extends IdEntity {
     @NonNull
     private Date date;
 
-    @OneToOne(mappedBy = "managerReport", optional = false)
+    @OneToOne(optional = false)
     @NonNull
     private Task task;
 
