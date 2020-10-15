@@ -10,13 +10,13 @@ import java.util.List;
 @RepositoryRestResource
 public interface TaskRepository extends BaseIdRepository<Task> {
 
-    @Query("SELECT t FROM Task t WHERE t.assignedWorker = ?1 AND t.workerReport IS NULL ORDER BY t.deadline ASC")
-    List<Task> getCurrentTasks(Worker worker);
-
     @Query("SELECT t FROM Task t WHERE (t.assignedWorker = ?1 OR (t.autoAssign = true AND t.assignedWorker IS NULL)) AND t.startDate IS NULL ORDER BY t.deadline ASC")
     List<Task> getNextTasks(Worker worker);
 
-    @Query("SELECT COUNT(t) FROM Task t WHERE t.assignedWorker = ?1 AND t.workerReport IS NULL")
-    Long getNumberOfActiveTasks(Worker worker);
+    @Query("SELECT t FROM Task t LEFT OUTER JOIN TaskWorkerReport twr ON twr.task.id = t.id WHERE t.assignedWorker = ?1 AND t.startDate IS NOT NULL AND twr.id IS NULL ORDER BY t.deadline ASC")
+    List<Task> getActiveTasks(Worker worker);
+
+    @Query("SELECT t FROM Task t WHERE t.assignedWorker = ?1 AND t.workerReport IS NOT NULL ORDER BY t.deadline ASC")
+    List<Task> getFinishedTasks(Worker worker);
 
 }

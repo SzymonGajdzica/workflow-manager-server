@@ -1,4 +1,4 @@
-package pl.polsl.workflow.manager.server.service.authentication;
+package pl.polsl.workflow.manager.server.helper.authentication;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

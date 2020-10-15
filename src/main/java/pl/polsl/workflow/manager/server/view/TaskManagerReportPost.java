@@ -5,22 +5,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
 @ToString
-public class GroupPost {
+public class TaskManagerReportPost {
 
     @ApiModelProperty(required = true, position = 1)
+    @NonNull
+    private Long taskId;
+
+    @ApiModelProperty(example = "Not quite it", position = 2)
     @NotBlank
     @NonNull
-    private String name;
-
-    @ApiModelProperty(required = true, position = 2)
-    @Nullable
-    private Long managerId;
+    private String description;
 
 }

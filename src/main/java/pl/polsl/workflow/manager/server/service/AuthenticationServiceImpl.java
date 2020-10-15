@@ -2,7 +2,7 @@ package pl.polsl.workflow.manager.server.service;
 
 import org.springframework.stereotype.Service;
 import pl.polsl.workflow.manager.server.exception.NotAuthorizedException;
-import pl.polsl.workflow.manager.server.service.authentication.AuthenticationHelper;
+import pl.polsl.workflow.manager.server.helper.authentication.AuthenticationHelper;
 import pl.polsl.workflow.manager.server.view.AuthenticationView;
 
 @Service

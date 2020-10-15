@@ -43,11 +43,15 @@ public class TaskPost {
     @NonNull
     private Date deadline;
 
-    @ApiModelProperty(required = true, position = 7)
+    @ApiModelProperty(required = true, position = 8)
+    @NonNull
+    private Long groupId;
+
+    @ApiModelProperty(required = true, position = 9)
     @Nullable
     private Long workerId;
 
-    @ApiModelProperty(required = true, position = 8)
+    @ApiModelProperty(required = true, position = 10)
     @Nullable
     private Long subTaskId;
 

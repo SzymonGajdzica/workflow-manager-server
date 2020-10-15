@@ -24,7 +24,7 @@ public class TaskMapperImpl implements TaskMapper {
         taskView.setAssignDate(task.getAssignDate());
         taskView.setAutoAssign(task.getAutoAssign());
         taskView.setCreateDate(task.getCreateDate());
-        taskView.setCreatorId(task.getCreator().getId());
+        taskView.setGroupId(task.getGroup().getId());
         taskView.setStartDate(task.getStartDate());
         taskView.setDeadline(task.getDeadline());
         taskView.setDescription(task.getDescription());

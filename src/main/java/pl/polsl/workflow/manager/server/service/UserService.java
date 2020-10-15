@@ -5,6 +5,8 @@ import pl.polsl.workflow.manager.server.view.UserPatch;
 import pl.polsl.workflow.manager.server.view.UserPost;
 import pl.polsl.workflow.manager.server.view.UserView;
 
+import java.util.List;
+
 public interface UserService {
 
     @NonNull
@@ -13,4 +15,9 @@ public interface UserService {
     @NonNull
     UserView updateUser(@NonNull Long userId, @NonNull UserPatch userPatch);
 
+    @NonNull
+    List<UserView> getAllUsers();
+
+    @NonNull
+    UserView getSelf(@NonNull String userToken);
 }

@@ -16,6 +16,4 @@ public interface UserMapper {
     @NonNull
     UserView map(@NonNull User user);
 
-
-
 }

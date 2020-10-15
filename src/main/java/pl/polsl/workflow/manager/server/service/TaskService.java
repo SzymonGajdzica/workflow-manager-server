@@ -6,18 +6,25 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.workflow.manager.server.view.TaskPost;
 import pl.polsl.workflow.manager.server.view.TaskView;
 
+import java.util.List;
+
 public interface TaskService {
 
     @Transactional
     @NonNull
-    TaskView createTask(@NonNull TaskPost taskPost, @NonNull String userToken);
+    TaskView createTask(@NonNull TaskPost taskPost, @NonNull String managerToken);
 
     void removeTask(@NonNull Long taskId);
 
     @NonNull
-    TaskView getNextTask(@NonNull String userToken, @Nullable Boolean autoStart);
+    TaskView getNextTask(@NonNull String workerToken, @Nullable Boolean autoStart);
 
     @NonNull
-    TaskView getCurrentTask(@NonNull String userToken);
+    TaskView getCurrentTask(@NonNull String workerToken);
 
+    @NonNull
+    List<TaskView> getFinishedTasks(@NonNull String workerToken);
+
+    @NonNull
+    List<TaskView> getGroupTasks(@NonNull Long groupId, @NonNull String managerToken);
 }

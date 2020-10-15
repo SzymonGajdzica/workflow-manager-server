@@ -34,7 +34,7 @@ public class TaskView {
 
     @ApiModelProperty(position = 5)
     @NonNull
-    private Long creatorId;
+    private Long groupId;
 
     @ApiModelProperty(position = 6)
     @NonNull

@@ -33,7 +33,7 @@ public class TaskManagerReport extends IdEntity {
     @Column(name = "date", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
-    private Date date;
+    private Date date = new Date();
 
     @OneToOne(optional = false)
     @NonNull

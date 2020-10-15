@@ -31,4 +31,8 @@ public class Group extends IdEntity {
     @NonNull
     private List<Worker> workers = new LinkedList<>();
 
+    @OneToMany(mappedBy = "group")
+    @NonNull
+    private List<Task> tasks = new LinkedList<>();
+
 }

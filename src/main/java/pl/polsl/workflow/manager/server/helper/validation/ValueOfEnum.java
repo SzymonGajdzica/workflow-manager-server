@@ -1,4 +1,4 @@
-package pl.polsl.workflow.manager.server.validation;
+package pl.polsl.workflow.manager.server.helper.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

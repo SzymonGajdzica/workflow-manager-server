@@ -25,7 +25,7 @@ public class TaskManagerReportView {
 
     @ApiModelProperty(position = 3)
     @Nullable
-    private TaskView fixTask;
+    private Long fixTaskId;
 
     @ApiModelProperty(position = 4)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

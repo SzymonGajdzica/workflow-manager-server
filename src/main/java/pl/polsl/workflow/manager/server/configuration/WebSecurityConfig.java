@@ -17,10 +17,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.polsl.workflow.manager.server.helper.authentication.CustomAuthenticationEntryPoint;
+import pl.polsl.workflow.manager.server.helper.authentication.CustomOncePerRequestFilter;
+import pl.polsl.workflow.manager.server.helper.authentication.CustomUserDetailsService;
 import pl.polsl.workflow.manager.server.model.Role;
-import pl.polsl.workflow.manager.server.service.authentication.CustomAuthenticationEntryPoint;
-import pl.polsl.workflow.manager.server.service.authentication.CustomOncePerRequestFilter;
-import pl.polsl.workflow.manager.server.service.authentication.CustomUserDetailsService;
 
 import javax.sql.DataSource;
 
@@ -83,18 +83,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/authentication/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/user").hasAuthority(Role.COORDINATOR.name())
-                .antMatchers(HttpMethod.PATCH, "/user").hasAuthority(Role.COORDINATOR.name())
-                .antMatchers(HttpMethod.POST, "/task").hasAuthority(Role.MANAGER.name())
-                .antMatchers(HttpMethod.DELETE, "/task").hasAuthority(Role.MANAGER.name())
-                .antMatchers(HttpMethod.GET, "/task/next").hasAuthority(Role.WORKER.name())
-                .antMatchers(HttpMethod.GET, "/task/current").hasAuthority(Role.WORKER.name())
-                .antMatchers(HttpMethod.POST, "/taskWorkerReport").hasAuthority(Role.WORKER.name())
-                .antMatchers(HttpMethod.POST, "/localization").hasAnyAuthority(Role.COORDINATOR.name())
-                .antMatchers(HttpMethod.POST, "/group").hasAuthority(Role.COORDINATOR.name())
-                .antMatchers(HttpMethod.GET, "/group/all").hasAuthority(Role.COORDINATOR.name())
-                .antMatchers(HttpMethod.GET, "/group/worker").hasAuthority(Role.WORKER.name())
-                .antMatchers(HttpMethod.GET, "/group/manager").hasAuthority(Role.MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/user/**").hasAuthority(Role.COORDINATOR.name())
+                .antMatchers(HttpMethod.PATCH, "/user/**").hasAuthority(Role.COORDINATOR.name())
+                .antMatchers(HttpMethod.POST, "/task/**").hasAuthority(Role.MANAGER.name())
+                .antMatchers(HttpMethod.DELETE, "/task/**").hasAuthority(Role.MANAGER.name())
+                .antMatchers(HttpMethod.GET, "/task/next/**").hasAuthority(Role.WORKER.name())
+                .antMatchers(HttpMethod.GET, "/task/current/**").hasAuthority(Role.WORKER.name())
+                .antMatchers(HttpMethod.GET, "/task/worker/**").hasAuthority(Role.WORKER.name())
+                .antMatchers(HttpMethod.GET, "/task/manager/**").hasAuthority(Role.MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/taskWorkerReport/**").hasAuthority(Role.WORKER.name())
+                .antMatchers(HttpMethod.POST, "/taskManagerReport/**").hasAuthority(Role.MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/localization/**").hasAuthority(Role.COORDINATOR.name())
+                .antMatchers(HttpMethod.GET, "/worker/**").hasAnyAuthority(Role.COORDINATOR.name(), Role.MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/group/**").hasAuthority(Role.COORDINATOR.name())
+                .antMatchers(HttpMethod.PATCH, "/group/**").hasAuthority(Role.COORDINATOR.name())
+                .antMatchers(HttpMethod.GET, "/group/all/**").hasAnyAuthority(Role.COORDINATOR.name(), Role.MANAGER.name())
+                .antMatchers(HttpMethod.GET, "/group/worker/**").hasAuthority(Role.WORKER.name())
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

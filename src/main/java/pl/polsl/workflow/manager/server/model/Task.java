@@ -34,7 +34,7 @@ public class Task extends IdEntity {
 
     @ManyToOne(optional = false)
     @NonNull
-    private Manager creator;
+    private Group group;
 
     @ManyToOne(optional = false)
     @NonNull

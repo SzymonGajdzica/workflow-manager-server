@@ -1,4 +1,4 @@
-package pl.polsl.workflow.manager.server.service.exception;
+package pl.polsl.workflow.manager.server.helper.exception;
 
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.stereotype.Component;

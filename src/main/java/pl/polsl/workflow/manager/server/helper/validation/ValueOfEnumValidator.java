@@ -1,4 +1,4 @@
-package pl.polsl.workflow.manager.server.validation;
+package pl.polsl.workflow.manager.server.helper.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -19,6 +19,9 @@ public class ValueOfEnumValidator implements ConstraintValidator<ValueOfEnum, Ch
  
     @Override
     public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
-        return value != null && acceptedValues.contains(value.toString());
+        if(value == null)
+            return true;
+        else
+            return acceptedValues.contains(value.toString());
     }
 }

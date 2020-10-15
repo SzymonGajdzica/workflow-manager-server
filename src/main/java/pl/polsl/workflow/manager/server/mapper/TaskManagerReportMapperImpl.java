@@ -1,18 +1,12 @@
 package pl.polsl.workflow.manager.server.mapper;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import pl.polsl.workflow.manager.server.model.TaskManagerReport;
+import pl.polsl.workflow.manager.server.view.TaskManagerReportPost;
 import pl.polsl.workflow.manager.server.view.TaskManagerReportView;
 
 @Component
 public class TaskManagerReportMapperImpl implements TaskManagerReportMapper {
-
-    private final TaskMapper taskMapper;
-
-    public TaskManagerReportMapperImpl(@Lazy  TaskMapper taskMapper) {
-        this.taskMapper = taskMapper;
-    }
 
     @Override
     public TaskManagerReportView map(TaskManagerReport taskManagerReport) {
@@ -21,7 +15,14 @@ public class TaskManagerReportMapperImpl implements TaskManagerReportMapper {
         taskManagerReportView.setId(taskManagerReport.getId());
         taskManagerReportView.setDescription(taskManagerReport.getDescription());
         if(taskManagerReport.getFixTask() != null)
-            taskManagerReportView.setFixTask(taskMapper.map(taskManagerReport.getFixTask()));
+            taskManagerReportView.setFixTaskId(taskManagerReport.getFixTask().getId());
         return taskManagerReportView;
+    }
+
+    @Override
+    public TaskManagerReport map(TaskManagerReportPost taskManagerReportPost) {
+        TaskManagerReport taskManagerReport = new TaskManagerReport();
+        taskManagerReport.setDescription(taskManagerReportPost.getDescription());
+        return taskManagerReport;
     }
 }

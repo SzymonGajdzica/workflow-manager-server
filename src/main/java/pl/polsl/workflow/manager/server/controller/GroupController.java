@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.workflow.manager.server.configuration.Parameters;
 import pl.polsl.workflow.manager.server.service.GroupService;
+import pl.polsl.workflow.manager.server.view.GroupPatch;
 import pl.polsl.workflow.manager.server.view.GroupPost;
 import pl.polsl.workflow.manager.server.view.GroupView;
 import springfox.documentation.annotations.ApiIgnore;
@@ -30,9 +31,12 @@ public class GroupController {
         return groupService.createGroup(groupPost);
     }
 
-    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<GroupView> getAllGroups() {
-        return groupService.getAllGroups();
+    @PatchMapping(value = "/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public GroupView updateGroup(
+            @PathVariable Long groupId,
+            @Valid @RequestBody GroupPatch groupPatch
+    ) {
+        return groupService.updateGroup(groupId, groupPatch);
     }
 
     @GetMapping(value = "/worker", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,11 +46,11 @@ public class GroupController {
         return groupService.getWorkerGroup(token);
     }
 
-    @GetMapping(value = "/manager", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<GroupView> getMangerGroups(
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<GroupView> getAllGroups(
             @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token
     ) {
-        return groupService.getManagerGroups(token);
+        return groupService.getGroups(token);
     }
 
 }

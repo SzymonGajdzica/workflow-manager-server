@@ -10,6 +10,7 @@ import pl.polsl.workflow.manager.server.view.TaskView;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/task")
@@ -28,6 +29,21 @@ public class TaskController {
             @Valid @RequestBody TaskPost taskPost
     ) {
         return taskService.createTask(taskPost, token);
+    }
+
+    @GetMapping(value = "/worker", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<TaskView> getFinishedTasks(
+            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token
+    ) {
+        return taskService.getFinishedTasks(token);
+    }
+
+    @GetMapping(value = "/manager/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<TaskView> getManagerTasks(
+            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token,
+            @PathVariable Long groupId
+    ) {
+        return taskService.getGroupTasks(groupId, token);
     }
 
     @GetMapping(value = "/next", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -24,4 +24,10 @@ public class Parameters {
         public static final String VALIDITY = "${authorization.validity-in-millis}";
     }
 
+    public static class App {
+        public static final String VERSION = "${app.version}";
+        public static final String NAME = "${app.name}";
+        public static final String DESCRIPTION = "${app.description}";
+    }
+
 }

@@ -34,7 +34,7 @@ public class TaskWorkerReport extends IdEntity {
     @NonNull
     private Date date = new Date();
 
-    @OneToOne()
+    @OneToOne(optional = false)
     @NonNull
     private Task task;
 

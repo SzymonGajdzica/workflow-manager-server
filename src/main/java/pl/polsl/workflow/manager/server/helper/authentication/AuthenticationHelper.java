@@ -1,4 +1,4 @@
-package pl.polsl.workflow.manager.server.service.authentication;
+package pl.polsl.workflow.manager.server.helper.authentication;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

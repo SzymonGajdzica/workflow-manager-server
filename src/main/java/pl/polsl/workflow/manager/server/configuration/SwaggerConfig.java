@@ -1,5 +1,6 @@
 package pl.polsl.workflow.manager.server.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,15 @@ import java.util.Collections;
 @Configuration
 public class SwaggerConfig {
 
+    @Value(Parameters.App.NAME)
+    private String appName;
+
+    @Value(Parameters.App.DESCRIPTION)
+    private String appDescription;
+
+    @Value(Parameters.App.VERSION)
+    private String appVersion;
+
     @Bean
     public Docket getDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -29,12 +39,12 @@ public class SwaggerConfig {
 
     private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
-                .title("Workflow manager rest api")
-                .description("Workflow manager")
+                .title(appName)
+                .description(appDescription)
                 .license("Licence")
                 .licenseUrl("https://opensource.org/licenses/mit-license.html")
                 .termsOfServiceUrl(null)
-                .version("0.0.1").contact(new Contact("Szymon Gajdzica","", "szymgaj226@student.polsl.pl"))
+                .version(appVersion).contact(new Contact("Szymon Gajdzica","", "szymgaj226@student.polsl.pl"))
                 .build();
     }
 

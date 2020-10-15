@@ -4,27 +4,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.polsl.workflow.manager.server.exception.BadRequestException;
 import pl.polsl.workflow.manager.server.exception.UsernameAlreadyUsedException;
+import pl.polsl.workflow.manager.server.helper.authentication.AuthenticationHelper;
 import pl.polsl.workflow.manager.server.mapper.UserMapper;
-import pl.polsl.workflow.manager.server.model.*;
+import pl.polsl.workflow.manager.server.model.Role;
+import pl.polsl.workflow.manager.server.model.User;
 import pl.polsl.workflow.manager.server.repository.UserRepository;
-import pl.polsl.workflow.manager.server.service.initialization.DataFiller;
 import pl.polsl.workflow.manager.server.view.UserPatch;
 import pl.polsl.workflow.manager.server.view.UserPost;
 import pl.polsl.workflow.manager.server.view.UserView;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService, DataFiller {
+public class UserServiceImpl implements UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final AuthenticationHelper authenticationHelper;
 
-    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository, UserMapper userMapper) {
+    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository, UserMapper userMapper, AuthenticationHelper authenticationHelper) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.authenticationHelper = authenticationHelper;
     }
 
     @Override
@@ -43,29 +47,20 @@ public class UserServiceImpl implements UserService, DataFiller {
     @Override
     public UserView updateUser(Long userId, UserPatch userPatch) {
         User user = userRepository.getById(userId);
+        if(user.getRole().equals(Role.COORDINATOR))
+            throw new BadRequestException("Coordinators can not update accounts of other coordinators");
         userMapper.map(userPatch, user);
         return userMapper.map(userRepository.save(user));
     }
 
     @Override
-    public void fillDatabase() {
-        if(userRepository.count() != 0L)
-            return;
-        Coordinator coordinator = new Coordinator();
-        coordinator.setUsername("coordinator1");
-        coordinator.setPassword(bCryptPasswordEncoder.encode("coordinator1"));
-        coordinator.setRole(Role.COORDINATOR);
+    public List<UserView> getAllUsers() {
+        return userRepository.findAll().stream().map(userMapper::map).collect(Collectors.toList());
+    }
 
-        Manager manager = new Manager();
-        manager.setUsername("manager1");
-        manager.setPassword(bCryptPasswordEncoder.encode("manager1"));
-        manager.setRole(Role.MANAGER);
-
-        Worker worker = new Worker();
-        worker.setUsername("worker1");
-        worker.setPassword(bCryptPasswordEncoder.encode("worker1"));
-        worker.setRole(Role.WORKER);
-
-        userRepository.saveAll(Arrays.asList(coordinator, manager, worker));
+    @Override
+    public UserView getSelf(String userToken) {
+        User user = authenticationHelper.getUserFromToken(userToken);
+        return userMapper.map(user);
     }
 }

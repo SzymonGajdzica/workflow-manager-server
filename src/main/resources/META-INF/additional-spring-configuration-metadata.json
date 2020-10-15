@@ -39,5 +39,20 @@
       "name": "authorization.validity-in-millis",
       "type": "java.lang.String",
       "description": "Validity of token in milliseconds."
+    },
+    {
+      "name": "app.version",
+      "type": "java.lang.String",
+      "description": "App version."
+    },
+    {
+      "name": "app.name",
+      "type": "java.lang.String",
+      "description": "App name."
+    },
+    {
+      "name": "app.description",
+      "type": "java.lang.String",
+      "description": "App description."
     }
   ] }

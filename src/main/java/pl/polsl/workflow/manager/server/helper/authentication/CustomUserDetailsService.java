@@ -1,4 +1,4 @@
-package pl.polsl.workflow.manager.server.service.authentication;
+package pl.polsl.workflow.manager.server.helper.authentication;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +9,7 @@ import pl.polsl.workflow.manager.server.model.User;
 import pl.polsl.workflow.manager.server.repository.UserRepository;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
@@ -21,7 +22,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+		Optional<User> optionalUser = userRepository.findByUsername(username);
+		if(!optionalUser.isPresent() || !optionalUser.get().getEnabled())
+			throw new UsernameNotFoundException("User not found with username: " + username);
+		User user = optionalUser.get();
 		return new org.springframework.security.core.userdetails.User(
 				user.getUsername(),
 				user.getPassword(),

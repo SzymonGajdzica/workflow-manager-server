@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.NonNull;
+import pl.polsl.workflow.manager.server.helper.validation.ValueOfEnum;
 import pl.polsl.workflow.manager.server.model.Role;
-import pl.polsl.workflow.manager.server.validation.ValueOfEnum;
 
 import javax.validation.constraints.NotBlank;
 

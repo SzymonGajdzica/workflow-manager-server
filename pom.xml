@@ -12,7 +12,7 @@
 
     <groupId>pl.polsl</groupId>
     <artifactId>workflow-manager-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>workflow-manager-server</name>
     <description>Workflow manager server</description>
 
