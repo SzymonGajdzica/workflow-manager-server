@@ -41,14 +41,14 @@ public class GroupController {
 
     @GetMapping(value = "/worker", produces = MediaType.APPLICATION_JSON_VALUE)
     public GroupView getWorkerGroup(
-            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token
+            @ApiIgnore @RequestHeader(Parameters.Authorization.HEADER) String token
     ) {
         return groupService.getWorkerGroup(token);
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<GroupView> getAllGroups(
-            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token
+            @ApiIgnore @RequestHeader(Parameters.Authorization.HEADER) String token
     ) {
         return groupService.getGroups(token);
     }

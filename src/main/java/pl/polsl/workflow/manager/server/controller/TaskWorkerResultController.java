@@ -20,7 +20,7 @@ public class TaskWorkerResultController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public TaskWorkerReportView createTaskWorkerReport(
-            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token,
+            @ApiIgnore @RequestHeader(Parameters.Authorization.HEADER) String token,
             @RequestBody TaskWorkerReportPost taskWorkerReportPost
     ) {
         return taskWorkerReportService.createTaskWorkerReport(taskWorkerReportPost, token);

@@ -94,7 +94,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/taskWorkerReport/**").hasAuthority(Role.WORKER.name())
                 .antMatchers(HttpMethod.POST, "/taskManagerReport/**").hasAuthority(Role.MANAGER.name())
                 .antMatchers(HttpMethod.POST, "/localization/**").hasAuthority(Role.COORDINATOR.name())
-                .antMatchers(HttpMethod.GET, "/worker/**").hasAnyAuthority(Role.COORDINATOR.name(), Role.MANAGER.name())
                 .antMatchers(HttpMethod.POST, "/group/**").hasAuthority(Role.COORDINATOR.name())
                 .antMatchers(HttpMethod.PATCH, "/group/**").hasAuthority(Role.COORDINATOR.name())
                 .antMatchers(HttpMethod.GET, "/group/all/**").hasAnyAuthority(Role.COORDINATOR.name(), Role.MANAGER.name())

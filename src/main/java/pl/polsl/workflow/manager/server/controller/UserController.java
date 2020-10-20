@@ -41,7 +41,7 @@ public class UserController {
 
     @GetMapping(value = "self", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserView getSelf(
-            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token
+            @ApiIgnore @RequestHeader(Parameters.Authorization.HEADER) String token
     ) {
         return userService.getSelf(token);
     }

@@ -20,7 +20,7 @@ public class TaskManagerResultController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public TaskManagerReportView createTaskManagerReport(
-            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token,
+            @ApiIgnore @RequestHeader(Parameters.Authorization.HEADER) String token,
             @RequestBody TaskManagerReportPost taskManagerReportPost
     ) {
         return taskWorkerReportService.createTaskManagerReport(taskManagerReportPost, token);

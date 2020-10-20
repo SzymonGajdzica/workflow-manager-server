@@ -25,7 +25,7 @@ public class TaskController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public TaskView addTask(
-            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token,
+            @ApiIgnore @RequestHeader(Parameters.Authorization.HEADER) String token,
             @Valid @RequestBody TaskPost taskPost
     ) {
         return taskService.createTask(taskPost, token);
@@ -33,14 +33,14 @@ public class TaskController {
 
     @GetMapping(value = "/worker", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<TaskView> getFinishedTasks(
-            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token
+            @ApiIgnore @RequestHeader(Parameters.Authorization.HEADER) String token
     ) {
         return taskService.getFinishedTasks(token);
     }
 
     @GetMapping(value = "/manager/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<TaskView> getManagerTasks(
-            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token,
+            @ApiIgnore @RequestHeader(Parameters.Authorization.HEADER) String token,
             @PathVariable Long groupId
     ) {
         return taskService.getGroupTasks(groupId, token);
@@ -48,7 +48,7 @@ public class TaskController {
 
     @GetMapping(value = "/next", produces = MediaType.APPLICATION_JSON_VALUE)
     public TaskView getNextTask(
-            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token,
+            @ApiIgnore @RequestHeader(Parameters.Authorization.HEADER) String token,
             @RequestParam(required = false) Boolean autoStart
     ) {
         return taskService.getNextTask(token, autoStart);
@@ -56,7 +56,7 @@ public class TaskController {
 
     @GetMapping(value = "/current", produces = MediaType.APPLICATION_JSON_VALUE)
     public TaskView getCurrentTask(
-            @ApiIgnore @RequestHeader(value = Parameters.Authorization.HEADER) String token
+            @ApiIgnore @RequestHeader(Parameters.Authorization.HEADER) String token
     ) {
         return taskService.getCurrentTask(token);
     }
