@@ -7,7 +7,7 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +21,7 @@ public class AuthenticationView {
     @ApiModelProperty(position = 2)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
-    private Date expirationDate;
+    private Instant expirationDate;
 
 
 

@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 @Data
@@ -63,22 +63,22 @@ public class TaskView {
     @ApiModelProperty(position = 12)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
-    private Date deadline;
+    private Instant deadline;
 
     @ApiModelProperty(position = 13)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
-    private Date createDate = new Date();
+    private Instant createDate = Instant.now();
 
     @ApiModelProperty(position = 14)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
-    private Date assignDate;
+    private Instant assignDate;
 
     @ApiModelProperty(position = 15)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
-    private Date startDate;
+    private Instant startDate;
 
 
 }

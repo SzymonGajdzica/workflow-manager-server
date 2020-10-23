@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 @Table(name = "tasks", indexes = { @Index(columnList = "shared_task_id") })
@@ -63,22 +63,22 @@ public class Task extends IdEntity {
     @Column(name = "deadline", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
-    private Date deadline;
+    private Instant deadline;
 
     @Column(name = "create_date", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
-    private Date createDate = new Date();
+    private Instant createDate = Instant.now();
 
     @Column(name = "assign_date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
-    private Date assignDate;
+    private Instant assignDate;
 
     @Column(name = "start_date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
-    private Date startDate;
+    private Instant startDate;
 
     public TaskStatus getStatus() {
         if(managerReport != null)

@@ -14,7 +14,7 @@ import pl.polsl.workflow.manager.server.repository.WorkerRepository;
 import pl.polsl.workflow.manager.server.view.TaskPost;
 import pl.polsl.workflow.manager.server.view.TaskView;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -52,7 +52,7 @@ public class TaskServiceImpl implements TaskService {
             if(!group.equals(worker.getGroup()))
                 throw new ForbiddenAccessException("Cannot assign worker from another group to this task");
             task.setAssignedWorker(worker);
-            task.setAssignDate(new Date());
+            task.setAssignDate(Instant.now());
         }
         TaskView result;
         if(taskPost.getSubTaskId() != null) {
@@ -80,8 +80,8 @@ public class TaskServiceImpl implements TaskService {
             if(taskRepository.getActiveTasks(worker).size() != 0)
                 throw new BadRequestException("Cannot start new task when has not finished all tasks");
             task.setAssignedWorker(worker);
-            task.setAssignDate(new Date());
-            task.setStartDate(new Date());
+            task.setAssignDate(Instant.now());
+            task.setStartDate(Instant.now());
             return taskMapper.map(taskRepository.save(task));
         } else
             return taskMapper.map(task);

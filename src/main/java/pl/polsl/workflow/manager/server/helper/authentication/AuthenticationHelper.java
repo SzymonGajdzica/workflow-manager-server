@@ -14,6 +14,7 @@ import pl.polsl.workflow.manager.server.exception.NotAuthorizedException;
 import pl.polsl.workflow.manager.server.model.User;
 import pl.polsl.workflow.manager.server.repository.UserRepository;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.function.Function;
@@ -53,8 +54,8 @@ public class AuthenticationHelper {
         return Jwts.builder()
                 .setClaims(new HashMap<>())
                 .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + validity))
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(Date.from(Instant.now().plusMillis(validity)))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
@@ -77,13 +78,13 @@ public class AuthenticationHelper {
     }
 
     @NonNull
-    public Date getExpirationDateFromToken(String token) throws RuntimeException {
-        return getClaimFromToken(token, Claims::getExpiration);
+    public Instant getExpirationDateFromToken(String token) throws RuntimeException {
+        return getClaimFromToken(token, Claims::getExpiration).toInstant();
     }
 
     @NonNull
     public Boolean validateToken(String token, UserDetails userDetails) throws RuntimeException {
-        return getUsernameFromToken(token).equals(userDetails.getUsername()) && !getExpirationDateFromToken(token).before(new Date());
+        return getUsernameFromToken(token).equals(userDetails.getUsername()) && !getExpirationDateFromToken(token).isBefore(Instant.now());
     }
 
 }

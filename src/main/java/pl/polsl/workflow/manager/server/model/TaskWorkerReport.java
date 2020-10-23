@@ -11,7 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.Date;
+import java.time.Instant;
 
 @Table(name = "task_worker_reports")
 @Entity
@@ -32,7 +32,7 @@ public class TaskWorkerReport extends IdEntity {
     @Column(name = "date", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
-    private Date date = new Date();
+    private Instant date = Instant.now();
 
     @OneToOne(optional = false)
     @NonNull

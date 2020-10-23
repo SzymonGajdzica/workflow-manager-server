@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
@@ -41,7 +41,7 @@ public class TaskPost {
     @ApiModelProperty(required = true, position = 6)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
-    private Date deadline;
+    private Instant deadline;
 
     @ApiModelProperty(required = true, position = 8)
     @NonNull

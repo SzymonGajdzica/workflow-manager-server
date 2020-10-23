@@ -10,8 +10,8 @@ import pl.polsl.workflow.manager.server.repository.LocalizationRepository;
 import pl.polsl.workflow.manager.server.repository.TaskRepository;
 import pl.polsl.workflow.manager.server.repository.WorkerRepository;
 
+import java.time.Instant;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -46,11 +46,11 @@ public class TaskDataFiller implements DataFiller {
         task1.setName("Task1");
         task1.setDescription("Clean swimming pool");
         task1.setAutoAssign(false);
-        task1.setDeadline(new Date(System.currentTimeMillis() + 100000L));
+        task1.setDeadline(Instant.now().plusMillis((100000L)));
         task1.setEstimatedExecutionTimeInMillis(60L * 60L * 1000L);
         task1.setSharedTaskId(UUID.randomUUID());
         task1.setLocalization(localization);
-        task1.setAssignDate(new Date());
+        task1.setAssignDate(Instant.now());
 
         Task task2 = new Task();
         task2.setGroup(group);
@@ -58,7 +58,7 @@ public class TaskDataFiller implements DataFiller {
         task2.setName("Task2");
         task2.setDescription("Repair pipes");
         task2.setAutoAssign(true);
-        task2.setDeadline(new Date(System.currentTimeMillis() + 100000000L));
+        task2.setDeadline(Instant.now().plusMillis(100000000L));
         task2.setEstimatedExecutionTimeInMillis(60L * 60L * 1000L);
         task2.setSharedTaskId(UUID.randomUUID());
         task2.setLocalization(localization);
