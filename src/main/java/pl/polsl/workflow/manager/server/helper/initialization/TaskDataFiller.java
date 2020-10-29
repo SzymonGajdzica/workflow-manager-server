@@ -45,7 +45,6 @@ public class TaskDataFiller implements DataFiller {
         task1.setAssignedWorker(worker);
         task1.setName("Task1");
         task1.setDescription("Clean swimming pool");
-        task1.setAutoAssign(false);
         task1.setDeadline(Instant.now().plusMillis((100000L)));
         task1.setEstimatedExecutionTimeInMillis(60L * 60L * 1000L);
         task1.setSharedTaskId(UUID.randomUUID());
@@ -57,7 +56,6 @@ public class TaskDataFiller implements DataFiller {
         task2.setAssignedWorker(null);
         task2.setName("Task2");
         task2.setDescription("Repair pipes");
-        task2.setAutoAssign(true);
         task2.setDeadline(Instant.now().plusMillis(100000000L));
         task2.setEstimatedExecutionTimeInMillis(60L * 60L * 1000L);
         task2.setSharedTaskId(UUID.randomUUID());

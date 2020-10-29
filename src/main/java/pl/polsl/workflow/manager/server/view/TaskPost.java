@@ -32,26 +32,22 @@ public class TaskPost {
 
     @ApiModelProperty(required = true, position = 4)
     @NonNull
-    private Boolean autoAssign;
-
-    @ApiModelProperty(required = true, position = 5)
-    @NonNull
     private Long estimatedExecutionTimeInMillis;
 
-    @ApiModelProperty(required = true, position = 6)
+    @ApiModelProperty(required = true, position = 5)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
     private Instant deadline;
 
-    @ApiModelProperty(required = true, position = 8)
+    @ApiModelProperty(required = true, position = 6)
     @NonNull
     private Long groupId;
 
-    @ApiModelProperty(required = true, position = 9)
+    @ApiModelProperty(required = true, position = 7)
     @Nullable
     private Long workerId;
 
-    @ApiModelProperty(required = true, position = 10)
+    @ApiModelProperty(required = true, position = 8)
     @Nullable
     private Long subTaskId;
 

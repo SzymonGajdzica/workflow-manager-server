@@ -41,41 +41,37 @@ public class TaskView {
     private Long localizationId;
 
     @ApiModelProperty(position = 7)
-    @NonNull
-    private Boolean autoAssign;
-
-    @ApiModelProperty(position = 8)
     @Nullable
     private Long workerId;
 
-    @ApiModelProperty(position = 9)
+    @ApiModelProperty(position = 8)
     @Nullable
     private TaskWorkerReportView taskWorkerReportView;
 
-    @ApiModelProperty(position = 10)
+    @ApiModelProperty(position = 9)
     @Nullable
     private TaskManagerReportView taskManagerReportView;
 
-    @ApiModelProperty(position = 11)
+    @ApiModelProperty(position = 10)
     @NonNull
     private Long estimatedExecutionTimeInMillis;
 
-    @ApiModelProperty(position = 12)
+    @ApiModelProperty(position = 11)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
     private Instant deadline;
 
-    @ApiModelProperty(position = 13)
+    @ApiModelProperty(position = 12)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
     private Instant createDate = Instant.now();
 
-    @ApiModelProperty(position = 14)
+    @ApiModelProperty(position = 13)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
     private Instant assignDate;
 
-    @ApiModelProperty(position = 15)
+    @ApiModelProperty(position = 14)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
     private Instant startDate;

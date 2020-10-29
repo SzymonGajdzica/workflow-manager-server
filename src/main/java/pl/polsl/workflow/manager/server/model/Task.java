@@ -40,10 +40,6 @@ public class Task extends IdEntity {
     @NonNull
     private Localization localization;
 
-    @Column(name = "auto_assign", nullable = false)
-    @NonNull
-    private Boolean autoAssign;
-
     @ManyToOne()
     @Nullable
     private Worker assignedWorker;

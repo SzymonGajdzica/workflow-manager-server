@@ -40,10 +40,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskView createTask(TaskPost taskPost, String managerToken) {
-        if(taskPost.getWorkerId() == null && !taskPost.getAutoAssign())
-            throw new BadRequestException("Task has to have assigned worker if it is not in auto assign mode");
-        if(taskPost.getWorkerId() != null && taskPost.getAutoAssign())
-            throw new BadRequestException("Task can not have assigned worker if it is in auto assign mode");
         Task task = taskMapper.map(taskPost);
         Manager manager = authenticationHelper.getUserFromToken(managerToken);
         Group group = groupRepository.getById(taskPost.getGroupId());

@@ -22,7 +22,6 @@ public class TaskMapperImpl implements TaskMapper {
         TaskView taskView = new TaskView();
         taskView.setId(task.getId());
         taskView.setAssignDate(task.getAssignDate());
-        taskView.setAutoAssign(task.getAutoAssign());
         taskView.setCreateDate(task.getCreateDate());
         taskView.setGroupId(task.getGroup().getId());
         taskView.setStartDate(task.getStartDate());
@@ -44,7 +43,6 @@ public class TaskMapperImpl implements TaskMapper {
     @Override
     public Task map(TaskPost taskPost) {
         Task task = new Task();
-        task.setAutoAssign(taskPost.getAutoAssign());
         task.setDeadline(taskPost.getDeadline());
         task.setName(taskPost.getName());
         task.setDescription(taskPost.getDescription());
