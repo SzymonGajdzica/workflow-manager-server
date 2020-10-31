@@ -21,6 +21,7 @@ public class TaskMapperImpl implements TaskMapper {
     public TaskView map(Task task) {
         TaskView taskView = new TaskView();
         taskView.setId(task.getId());
+        taskView.setIsSubTask(task.getIsSubtask());
         taskView.setAssignDate(task.getAssignDate());
         taskView.setCreateDate(task.getCreateDate());
         taskView.setGroupId(task.getGroup().getId());

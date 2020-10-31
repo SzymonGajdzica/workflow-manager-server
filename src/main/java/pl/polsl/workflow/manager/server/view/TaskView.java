@@ -24,54 +24,58 @@ public class TaskView {
     @NonNull
     private UUID sharedTaskId;
 
-    @ApiModelProperty(example = "Clean swimming pool", position = 3)
+    @ApiModelProperty(position = 3)
+    @NonNull
+    private Boolean isSubTask;
+
+    @ApiModelProperty(example = "Clean swimming pool", position = 4)
     @NonNull
     private String name;
 
-    @ApiModelProperty(example = "You have to", position = 4)
+    @ApiModelProperty(example = "You have to", position = 5)
     @NonNull
     private String description;
 
-    @ApiModelProperty(position = 5)
+    @ApiModelProperty(position = 6)
     @NonNull
     private Long groupId;
 
-    @ApiModelProperty(position = 6)
+    @ApiModelProperty(position = 7)
     @NonNull
     private Long localizationId;
 
-    @ApiModelProperty(position = 7)
+    @ApiModelProperty(position = 8)
     @Nullable
     private Long workerId;
 
-    @ApiModelProperty(position = 8)
+    @ApiModelProperty(position = 9)
     @Nullable
     private TaskWorkerReportView taskWorkerReportView;
 
-    @ApiModelProperty(position = 9)
+    @ApiModelProperty(position = 10)
     @Nullable
     private TaskManagerReportView taskManagerReportView;
 
-    @ApiModelProperty(position = 10)
+    @ApiModelProperty(position = 11)
     @NonNull
     private Long estimatedExecutionTimeInMillis;
-
-    @ApiModelProperty(position = 11)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @NonNull
-    private Instant deadline;
 
     @ApiModelProperty(position = 12)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NonNull
-    private Instant createDate = Instant.now();
+    private Instant deadline;
 
     @ApiModelProperty(position = 13)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @NonNull
+    private Instant createDate = Instant.now();
+
+    @ApiModelProperty(position = 14)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
     private Instant assignDate;
 
-    @ApiModelProperty(position = 14)
+    @ApiModelProperty(position = 15)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Nullable
     private Instant startDate;
