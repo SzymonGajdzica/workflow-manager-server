@@ -14,6 +14,7 @@ public interface TaskService {
     @NonNull
     TaskView createTask(@NonNull TaskPost taskPost, @NonNull String managerToken);
 
+    @Transactional
     void removeTask(@NonNull Long taskId);
 
     @NonNull

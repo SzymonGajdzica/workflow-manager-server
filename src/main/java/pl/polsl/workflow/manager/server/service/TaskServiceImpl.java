@@ -7,10 +7,7 @@ import pl.polsl.workflow.manager.server.exception.NotFoundException;
 import pl.polsl.workflow.manager.server.helper.authentication.AuthenticationHelper;
 import pl.polsl.workflow.manager.server.mapper.TaskMapper;
 import pl.polsl.workflow.manager.server.model.*;
-import pl.polsl.workflow.manager.server.repository.GroupRepository;
-import pl.polsl.workflow.manager.server.repository.LocalizationRepository;
-import pl.polsl.workflow.manager.server.repository.TaskRepository;
-import pl.polsl.workflow.manager.server.repository.WorkerRepository;
+import pl.polsl.workflow.manager.server.repository.*;
 import pl.polsl.workflow.manager.server.view.TaskPost;
 import pl.polsl.workflow.manager.server.view.TaskView;
 
@@ -28,14 +25,16 @@ public class TaskServiceImpl implements TaskService {
     private final LocalizationRepository localizationRepository;
     private final WorkerRepository workerRepository;
     private final GroupRepository groupRepository;
+    private final TaskManagerReportRepository taskManagerReportRepository;
 
-    public TaskServiceImpl(TaskRepository taskRepository, AuthenticationHelper authenticationHelper, TaskMapper taskMapper, LocalizationRepository localizationRepository, WorkerRepository workerRepository, GroupRepository groupRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, AuthenticationHelper authenticationHelper, TaskMapper taskMapper, LocalizationRepository localizationRepository, WorkerRepository workerRepository, GroupRepository groupRepository, TaskManagerReportRepository taskManagerReportRepository) {
         this.taskRepository = taskRepository;
         this.authenticationHelper = authenticationHelper;
         this.taskMapper = taskMapper;
         this.localizationRepository = localizationRepository;
         this.workerRepository = workerRepository;
         this.groupRepository = groupRepository;
+        this.taskManagerReportRepository = taskManagerReportRepository;
     }
 
     @Override
@@ -115,6 +114,11 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.getById(taskId);
         if(task.getStatus() != TaskStatus.CREATED)
             throw new BadRequestException("Can only delete created task");
+        if(task.getIsSubtask()) {
+            TaskManagerReport managerReport = taskManagerReportRepository.getByFixTask(task);
+            managerReport.setFixTask(null);
+            taskManagerReportRepository.save(managerReport);
+        }
         taskRepository.delete(task);
     }
 }
