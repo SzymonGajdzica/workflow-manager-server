@@ -24,6 +24,10 @@ public class Task extends IdEntity {
     @NonNull
     private UUID sharedTaskId;
 
+    @Column(name = "is_subtask", nullable = false)
+    @NonNull
+    private Boolean isSubtask = false;
+
     @Column(name = "name", nullable = false)
     @NonNull
     private String name;
