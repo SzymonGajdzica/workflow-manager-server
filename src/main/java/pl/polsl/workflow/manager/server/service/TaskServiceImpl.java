@@ -62,7 +62,7 @@ public class TaskServiceImpl implements TaskService {
             if(subTask.getManagerReport().getFixTask() != null)
                 throw new BadRequestException("Task already has a fix task");
             subTask.getManagerReport().setFixTask(task);
-            subTask.setIsSubtask(true);
+            task.setIsSubtask(true);
             task.setSharedTaskId(subTask.getSharedTaskId());
             result = taskMapper.map(taskRepository.save(task));
             taskRepository.save(subTask);
