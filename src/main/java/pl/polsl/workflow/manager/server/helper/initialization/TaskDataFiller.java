@@ -36,8 +36,8 @@ public class TaskDataFiller implements DataFiller {
         if(taskRepository.count() != 0L)
             return;
 
-        Group group = groupRepository.findAll().stream().findFirst().orElseThrow(RuntimeException::new);
-        Worker worker = workerRepository.findAll().stream().findFirst().orElseThrow(RuntimeException::new);
+        Group group = groupRepository.findAll().stream().filter(group1 -> group1.getManager() != null).findFirst().orElseThrow(RuntimeException::new);
+        Worker worker = workerRepository.findAll().stream().filter(worker1 -> group.equals(worker1.getGroup())).findFirst().orElseThrow(RuntimeException::new);
         Localization localization = localizationRepository.findAll().stream().findFirst().orElseThrow(RuntimeException::new);
 
         Task task1 = new Task();
