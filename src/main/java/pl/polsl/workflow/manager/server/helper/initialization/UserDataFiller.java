@@ -40,13 +40,31 @@ public class UserDataFiller implements DataFiller {
         manager.setRole(Role.MANAGER);
         group.setManager(manager);
 
-        Worker worker = new Worker();
-        worker.setUsername("worker1");
-        worker.setPassword(bCryptPasswordEncoder.encode("worker1"));
-        worker.setRole(Role.WORKER);
-        worker.setGroup(group);
+        Worker worker1 = new Worker();
+        worker1.setUsername("worker1");
+        worker1.setPassword(bCryptPasswordEncoder.encode("worker1"));
+        worker1.setRole(Role.WORKER);
+        worker1.setGroup(group);
 
-        userRepository.saveAll(Arrays.asList(coordinator, manager, worker));
+        Worker worker2 = new Worker();
+        worker2.setUsername("worker2");
+        worker2.setPassword(bCryptPasswordEncoder.encode("worker2"));
+        worker2.setRole(Role.WORKER);
+        worker2.setGroup(group);
+
+        Worker worker3 = new Worker();
+        worker2.setUsername("worker3");
+        worker2.setPassword(bCryptPasswordEncoder.encode("worker3"));
+        worker2.setRole(Role.WORKER);
+        worker2.setGroup(group);
+
+        Worker worker4 = new Worker();
+        worker2.setUsername("worker4");
+        worker2.setPassword(bCryptPasswordEncoder.encode("worker4"));
+        worker2.setRole(Role.WORKER);
+        worker2.setGroup(group);
+
+        userRepository.saveAll(Arrays.asList(coordinator, manager, worker1, worker2, worker3, worker4));
         groupRepository.save(group);
     }
 
