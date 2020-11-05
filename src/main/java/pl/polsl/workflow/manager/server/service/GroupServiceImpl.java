@@ -4,12 +4,10 @@ import org.springframework.stereotype.Service;
 import pl.polsl.workflow.manager.server.exception.NotFoundException;
 import pl.polsl.workflow.manager.server.helper.authentication.AuthenticationHelper;
 import pl.polsl.workflow.manager.server.mapper.GroupMapper;
-import pl.polsl.workflow.manager.server.model.Group;
-import pl.polsl.workflow.manager.server.model.Manager;
-import pl.polsl.workflow.manager.server.model.User;
-import pl.polsl.workflow.manager.server.model.Worker;
+import pl.polsl.workflow.manager.server.model.*;
 import pl.polsl.workflow.manager.server.repository.GroupRepository;
 import pl.polsl.workflow.manager.server.repository.ManagerRepository;
+import pl.polsl.workflow.manager.server.repository.TaskRepository;
 import pl.polsl.workflow.manager.server.repository.WorkerRepository;
 import pl.polsl.workflow.manager.server.view.GroupPatch;
 import pl.polsl.workflow.manager.server.view.GroupPost;
@@ -29,13 +27,15 @@ public class GroupServiceImpl implements GroupService {
     private final AuthenticationHelper authenticationHelper;
     private final ManagerRepository managerRepository;
     private final WorkerRepository workerRepository;
+    private final TaskRepository taskRepository;
 
-    public GroupServiceImpl(GroupRepository groupRepository, GroupMapper groupMapper, AuthenticationHelper authenticationHelper, ManagerRepository managerRepository, WorkerRepository workerRepository) {
+    public GroupServiceImpl(GroupRepository groupRepository, GroupMapper groupMapper, AuthenticationHelper authenticationHelper, ManagerRepository managerRepository, WorkerRepository workerRepository, TaskRepository taskRepository) {
         this.groupRepository = groupRepository;
         this.groupMapper = groupMapper;
         this.authenticationHelper = authenticationHelper;
         this.managerRepository = managerRepository;
         this.workerRepository = workerRepository;
+        this.taskRepository = taskRepository;
     }
 
     @Override
@@ -78,12 +78,18 @@ public class GroupServiceImpl implements GroupService {
         if(groupPatch.getHasWorkerIds()) {
             List<Long> workerIdList = Optional.ofNullable(groupPatch.getWorkerIds()).orElse(Collections.emptyList());
             List<Worker> newWorkers = workerRepository.getAllById(workerIdList);
-            List<Worker> oldWorkers = group.getWorkers();
+            List<Worker> oldWorkers = group.getWorkers().stream().filter(worker -> !newWorkers.contains(worker)).collect(Collectors.toList());
             oldWorkers.forEach(worker -> worker.setGroup(null));
             newWorkers.forEach(worker -> worker.setGroup(group));
+            List<Task> tasksToClear = taskRepository.getAssignedNotFinishedTasks(oldWorkers);
+            tasksToClear.forEach(task -> {
+                task.setStartDate(null);
+                task.setAssignedWorker(null);
+            });
             HashSet<Worker> workersToSave = new HashSet<>();
             workersToSave.addAll(newWorkers);
             workersToSave.addAll(oldWorkers);
+            taskRepository.saveAll(tasksToClear);
             workerRepository.saveAll(workersToSave);
             group.setWorkers(newWorkers);
         }

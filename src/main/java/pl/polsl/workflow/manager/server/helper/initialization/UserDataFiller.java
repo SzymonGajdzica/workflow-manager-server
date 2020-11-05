@@ -7,6 +7,7 @@ import pl.polsl.workflow.manager.server.repository.GroupRepository;
 import pl.polsl.workflow.manager.server.repository.UserRepository;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,8 @@ public class UserDataFiller implements DataFiller {
     public void fillDatabase() {
         if(userRepository.count() != 0L)
             return;
-        Group group = groupRepository.findAll().stream().findFirst().orElseThrow(RuntimeException::new);
+        List<Group> groups = groupRepository.findAll();
+        Group group = groups.stream().findFirst().orElseThrow(RuntimeException::new);
 
         Coordinator coordinator = new Coordinator();
         coordinator.setUsername("coordinator1");
@@ -38,7 +40,7 @@ public class UserDataFiller implements DataFiller {
         manager.setUsername("manager1");
         manager.setPassword(bCryptPasswordEncoder.encode("manager1"));
         manager.setRole(Role.MANAGER);
-        group.setManager(manager);
+        groups.forEach(group1 -> group1.setManager(manager));
 
         Worker worker1 = new Worker();
         worker1.setUsername("worker1");
@@ -65,7 +67,7 @@ public class UserDataFiller implements DataFiller {
         worker4.setGroup(group);
 
         userRepository.saveAll(Arrays.asList(coordinator, manager, worker1, worker2, worker3, worker4));
-        groupRepository.save(group);
+        groupRepository.saveAll(groups);
     }
 
     @Override
