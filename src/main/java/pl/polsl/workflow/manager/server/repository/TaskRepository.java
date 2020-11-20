@@ -11,10 +11,10 @@ import java.util.List;
 @RepositoryRestResource
 public interface TaskRepository extends BaseIdRepository<Task> {
 
-    @Query("SELECT t FROM Task t WHERE (t.assignedWorker IS NULL OR t.assignedWorker = :worker) AND t.startDate IS NULL AND t.group = :#{#worker.group}")
+    @Query("SELECT t FROM Task t WHERE (t.assignedWorker IS NULL OR t.assignedWorker = :worker) AND t.startDate IS NULL AND t.group = :#{#worker.group} ORDER BY t.deadline ASC")
     List<Task> getNextTasks(@Param("worker") Worker worker);
 
-    @Query("SELECT t FROM Task t LEFT OUTER JOIN TaskWorkerReport twr ON twr.task.id = t.id WHERE t.assignedWorker = :worker AND t.startDate IS NOT NULL AND twr.id IS NULL AND t.group = :#{#worker.group}")
+    @Query("SELECT t FROM Task t LEFT OUTER JOIN TaskWorkerReport twr ON twr.task.id = t.id WHERE t.assignedWorker = :worker AND t.startDate IS NOT NULL AND twr.id IS NULL AND t.group = :#{#worker.group} ORDER BY t.deadline ASC")
     List<Task> getActiveTasks(@Param("worker") Worker worker);
 
     @Query("SELECT t FROM Task t WHERE t.assignedWorker = :worker AND t.workerReport IS NOT NULL AND t.group = :#{#worker.group}")
