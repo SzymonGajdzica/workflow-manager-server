@@ -36,3 +36,4 @@ public class Group extends IdEntity {
     private List<Task> tasks = new LinkedList<>();
 
 }
+

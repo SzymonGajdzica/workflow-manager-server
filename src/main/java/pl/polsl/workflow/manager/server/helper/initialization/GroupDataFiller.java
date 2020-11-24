@@ -20,13 +20,13 @@ public class GroupDataFiller implements DataFiller {
         if(groupRepository.count() != 0L)
             return;
         Group group1 = new Group();
-        group1.setName("Group1");
+        group1.setName("Cleaners");
 
         Group group2 = new Group();
-        group2.setName("Group2");
+        group2.setName("Mechanics");
 
         Group group3 = new Group();
-        group3.setName("Group3");
+        group3.setName("Plumbers");
 
         groupRepository.saveAll(Arrays.asList(group1, group2, group3));
     }

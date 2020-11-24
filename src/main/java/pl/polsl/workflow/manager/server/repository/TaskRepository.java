@@ -24,3 +24,4 @@ public interface TaskRepository extends BaseIdRepository<Task> {
     List<Task> getAssignedNotFinishedTasks(@Param("workers") List<Worker> workers);
 
 }
+
