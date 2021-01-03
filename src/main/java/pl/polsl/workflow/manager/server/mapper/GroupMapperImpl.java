@@ -19,7 +19,12 @@ public class GroupMapperImpl implements GroupMapper {
         groupView.setName(group.getName());
         if (group.getManager() != null)
             groupView.setManagerId(group.getManager().getId());
-        groupView.setWorkerIdList(group.getWorkers().stream().map(IdEntity::getId).collect(Collectors.toList()));
+        groupView.setWorkerIdList(
+                group.getWorkers()
+                        .stream()
+                        .map(IdEntity::getId)
+                        .collect(Collectors.toList())
+        );
         return groupView;
     }
 
