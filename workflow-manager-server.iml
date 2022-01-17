@@ -10,6 +10,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" value="d2525a94-3472-426c-8cb4-4832beafb68b" />
+          <factory-entry name="workflow-manager-server" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
